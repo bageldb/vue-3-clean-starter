@@ -46,6 +46,7 @@ const antfuRules = {
 	'style/comma-dangle': 0,
 	'antfu/if-newline': 0,
 	'style/brace-style': 0,
+	'ts/strict-boolean-expressions': 1,
 }
 
 /**
