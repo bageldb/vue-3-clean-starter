@@ -3,8 +3,5 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "vue.volar"
-  ],
-  "unwantedRecommendations": [
-    "vscode.typescript-language-features" // disable in workspace
-  ]
+	],
 }

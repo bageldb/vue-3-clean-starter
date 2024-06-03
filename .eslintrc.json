@@ -1,0 +1,215 @@
+{
+	"env": {
+		"browser": true,
+		"node": true,
+		"es6": true,
+		"es2021": true,
+		"vue/setup-compiler-macros": true
+	},
+	"extends": [
+		"plugin:vue/vue3-recommended",
+		"plugin:vuejs-accessibility/recommended",
+		"plugin:oxlint/recommended"
+	],
+	"plugins": [
+		"@stylistic"
+	],
+	"languageOptions": {
+		"extraFileExtensions": [
+			".vue",
+			".md",
+			".json"
+		],
+		"project": [
+			"./tsconfig.json",
+			"./tsconfig.app.json"
+		],
+		"parser": "@typescript-eslint/parser",
+		"parserOptions": {
+			"parser": "@typescript-eslint/parser",
+			"ecmaVersion": "latest",
+			"sourceType": "module"
+		},
+		"warnOnUnsupportedTypeScriptVersion": false
+	},
+	"globals": {
+		"ga": "readonly",
+		"process": "readonly",
+		"chrome": "readonly",
+		"defineEmits": "readonly",
+		"Record": "readonly",
+		"$": "readonly",
+		"$ref": "readonly",
+		"$computed": "readonly",
+		"$i18n": "readonly"
+	},
+	"rules": {
+		"no-useless-catch": 0,
+		"no-restricted-syntax": 0,
+		"no-console": 0,
+		"camelcase": 0,
+		"no-alert": 1,
+		"import/no-cycle": 1,
+		"new-cap": 1,
+		"eqeqeq": 1,
+		"radix": 1,
+		"no-empty": 1,
+		"no-empty-pattern": 1,
+		"no-prototype-builtins": 1,
+		"no-multi-assign": 1,
+		"class-methods-use-this": 1,
+		"guard-for-in": 1,
+		"default-case": 1,
+		"no-undef": 1,
+		"prefer-const": 1,
+		"prefer-destructuring": 1,
+		"no-useless-escape": 1,
+		"no-shadow": 1,
+		"no-sequences": 1,
+		"no-cond-assign": 1,
+		"no-await-in-loop": 1,
+		"no-restricted-globals": 1,
+		"no-underscore-dangle": 0,
+		"no-param-reassign": 0,
+		"no-void": 0,
+		"no-nested-ternary": 0,
+		"max-classes-per-file": 0,
+		"no-return-assign": 0,
+		"import/extensions": 0,
+		"import/no-unresolved": 0,
+		"import/no-extraneous-dependencies": 0,
+		"import/prefer-default-export": 0,
+		"prefer-promise-reject-errors": 0,
+		"no-plusplus": 0,
+		"import/first": 0,
+		"import/no-relative-packages": 0,
+		"no-restricted-properties": 1,
+		"no-use-before-define": 1,
+		"no-unused-vars": 1,
+		"import/named": 1,
+		"no-redeclare": 1,
+		"import/namespace": 1,
+		"import/default": 1,
+		"import/export": 2,
+		"consistent-return": [
+			"warn",
+			{
+				"treatUndefinedAsUnspecified": false
+			}
+		],
+		"vue/valid-v-on": 0,
+		"vue/v-on-event-hyphenation": 0,
+		"vue/attribute-hyphenation": 0,
+		"vue/no-useless-template-attributes": 0,
+		"vue/multi-word-component-names": 0,
+		"vue/html-indent": [
+			"warn",
+			"tab",
+			{
+				"attribute": 1,
+				"baseIndent": 1,
+				"closeBracket": 0,
+				"alignAttributesVertically": true,
+				"ignores": []
+			}
+		],
+		"vue/no-dupe-keys": 1,
+		"vue/no-v-text-v-html-on-component": 1,
+		"vue/first-attribute-linebreak": 1,
+		"vue/no-reserved-component-names": 1,
+		"vue/no-mutating-props": 1,
+		"vue/no-unused-vars": 1,
+		"vue/html-self-closing": 1,
+		"vue/singleline-html-element-content-newline": 1,
+		"vue/multiline-html-element-content-newline": 1,
+		"vue/valid-v-for": 1,
+		"vue/block-tag-newline": 2,
+		"vue/html-closing-bracket-newline": [
+			1,
+			{
+				"singleline": "never",
+				"multiline": "always"
+			}
+		],
+		"vue/prefer-template": 2,
+		"vue/max-len": [
+			"warn",
+			{
+				"code": 120,
+				"template": 120,
+				"comments": 120,
+				"ignoreComments": true,
+				"ignoreTrailingComments": false,
+				"ignoreUrls": false,
+				"ignoreStrings": true,
+				"ignoreTemplateLiterals": false,
+				"ignoreRegExpLiterals": false,
+				"ignoreHTMLAttributeValues": false,
+				"ignoreHTMLTextContents": false
+			}
+		],
+		"vuejs-accessibility/no-autofocus": 1,
+		"vuejs-accessibility/click-events-have-key-events": 0,
+		"vuejs-accessibility/no-static-element-interactions": 0,
+		"vuejs-accessibility/form-control-has-label": 0,
+		"vuejs-accessibility/label-has-for": 1,
+		"no-unused-expressions": [
+			"warn",
+			{
+				"allowShortCircuit": true,
+				"allowTernary": true
+			}
+		],
+		"prettier/prettier": 0,
+		"@typescript-eslint/explicit-function-return-type": 0,
+		"@typescript-eslint/explicit-module-boundary-types": 0,
+		"@typescript-eslint/no-unsafe-member-access": 0,
+		"@typescript-eslint/no-unsafe-return": 0,
+		"@typescript-eslint/no-unsafe-argument": 0,
+		"@typescript-eslint/no-unsafe-assignment": 0,
+		"@typescript-eslint/no-unsafe-call": 0,
+		"@typescript-eslint/restrict-template-expressions": 0,
+		"@typescript-eslint/no-misused-promises": 0,
+		"@typescript-eslint/no-explicit-any": 1,
+		"@typescript-eslint/ban-ts-comment": 1,
+		"@typescript-eslint/no-shadow": 1,
+		"@typescript-eslint/require-await": 1,
+		"@typescript-eslint/no-empty-function": 1,
+		"@typescript-eslint/no-empty-interface": 1,
+		"@typescript-eslint/no-unused-vars": 1,
+		"@typescript-eslint/unbound-method": 1,
+		"@typescript-eslint/no-var-requires": 0,
+		"@typescript-eslint/no-throw-literal": 1,
+		"@typescript-eslint/no-unnecessary-condition": 1,
+		"@typescript-eslint/prefer-nullish-coalescing": 0,
+		"@typescript-eslint/no-dynamic-delete": 1,
+		"@typescript-eslint/no-confusing-void-expression": 1,
+		"@typescript-eslint/no-non-null-assertion": 1,
+		"sort-imports": 1,
+		"handle-callback-err": 1,
+		"max-statements-per-line": 0,
+		"unused-imports/no-unused-vars": 1,
+		"@stylistic/operator-linebreak": [
+			"warn",
+			"after"
+		],
+		"@stylistic/no-tabs": 0,
+		"@stylistic/semi": 1,
+		"@stylistic/no-mixed-spaces-and-tabs": 1,
+		"@stylistic/lines-between-class-members": 0,
+		"@stylistic/no-trailing-spaces": 1,
+		"@stylistic/no-multiple-empty-lines": 1,
+		"@stylistic/implicit-arrow-linebreak": 1,
+		"@stylistic/indent": [
+			"warn",
+			"tab"
+		]
+	},
+	"ignorePatterns": [
+		"node_modules",
+		"dist",
+		"build",
+		"public",
+		"**/bagelink/packages/**/*"
+	]
+}

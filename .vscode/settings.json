@@ -1,7 +1,47 @@
 {
-    "vue.codeActions.enabled": false,
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll": "explicit"
-    }
+	"editor.bracketPairColorization.enabled": true,
+	"editor.guides.bracketPairs": true,
+	"editor.formatOnType": false, // required
+	// "editor.formatOnSave": true, // optional
+	// "editor.formatOnSaveMode": "modificationsIfAvailable", // required to format on save
+	"files.autoSave": "off", // optional but recommended
+	"vs-code-prettier-eslint.prettierLast": false, // set as "true" to run 'prettier' last not first
+	// "eslint.run": "onSave",
+	"eslint.options": {
+		"cache": true,
+		"cacheLocation": "../node_modules/.cache/.eslintcache",
+		"ignorePatterns": [
+			"**/bagelink/packages/**/*"
+		]
+	},
+	"vue.codeActions.enabled": true,
+	// "eslint.codeActionsOnSave.mode": "problems",
+	// Enable the ESlint flat config support
+	"eslint.experimental.useFlatConfig": true,
+	// Disable the default formatter, use eslint instead
+	"prettier.enable": true,
+	// Auto fix
+	"editor.codeActionsOnSave": {
+		// "source.fixAll.eslint": "never"
+		"source.formatDocument": "explicit",
+		"source.fixAll.eslint": "explicit"
+		// "source.organizeImports": "never"
+	},
+	"editor.formatOnSave": true,
+	// Enable eslint for all supported languages
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact",
+		"vue",
+		"html",
+		"markdown",
+		"json",
+		"jsonc",
+		"yaml",
+		"toml",
+		"gql",
+		"graphql"
+	]
 }
