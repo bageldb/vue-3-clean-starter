@@ -1,34 +1,27 @@
 /* eslint-env node */
-
 // @ts-check
-import { createRequire } from 'node:module'
+
 import { readFileSync } from 'node:fs'
 
-// eslint-disable-next-line import/namespace
-import { loadEnv } from 'vite'
-
-// eslint-disable-next-line import/namespace, import/default
+import { cwd } from 'node:process'
 import antfu from '@antfu/eslint-config'
-
-// @ts-expect-error env config
-import vuejsAccessibility from 'eslint-plugin-vuejs-accessibility'
-// @ts-expect-error env config
-import globals from 'globals'
-// @ts-expect-error env config
-import oxlint from 'eslint-plugin-oxlint'
-import tsEslint from 'typescript-eslint'
-
 import { FlatCompat } from '@eslint/eslintrc'
 
-/** * @type import('./.eslintrc.json') */
+import oxlint from 'eslint-plugin-oxlint'
+
+import vuejsAccessibility from 'eslint-plugin-vuejs-accessibility'
+import tsEslint from 'typescript-eslint'
+
+/// / @ts-expect-error env config
+// import globals from 'globals'
+import { loadEnv } from 'vite'
+
+/** * @type {import('./.eslintrc.json')} */
 const jsonConfig = JSON.parse(readFileSync('./.eslintrc.json', 'utf-8'))
 
-// @ts-expect-error env config
-const _require = createRequire(import.meta.url)
-const env = loadEnv('', _require('process').cwd(), '')
+const env = loadEnv('', cwd(), '')
 
 const eslintrcCompat = new FlatCompat({
-	// @ts-expect-error env config
 	baseDirectory: import.meta.dirname,
 })
 
@@ -46,7 +39,10 @@ const antfuRules = {
 	'style/comma-dangle': 0,
 	'antfu/if-newline': 0,
 	'style/brace-style': 0,
+	'perfectionist/sort-named-imports': 0,
+	'perfectionist/sort-imports': 0,
 	'ts/strict-boolean-expressions': 1,
+	'ts/return-await': 1,
 }
 
 /**
@@ -62,21 +58,20 @@ const rules = {
 const files = ['*.ts', '*.js', '*.vue']
 
 /**
- * @type import('eslint').Linter.FlatConfig['languageOptions']
+ * @type {import('eslint').Linter.Config['languageOptions']}
  */
 const languageOptions = {
 	// // @ts-expect-error not assignable to type 'GlobalsConfig'.
-	globals: {
-		...globals.browser,
+	globals: Object.create({
+		// ...globals.browser,
 		...jsonConfig.globals,
-	},
+	}),
 	parserOptions: {
 		extraFileExtensions: jsonConfig.languageOptions.extraFileExtensions,
 		parser: tsEslint.parser,
-		project: ['tsconfig.json', 'tsconfig.app.json'],
+		project: jsonConfig.languageOptions.project,
 		ecmaVersion: 'latest',
 		sourceType: 'module',
-		// @ts-expect-error env config
 		tsconfigRootDir: import.meta.dirname,
 		warnOnUnsupportedTypeScriptVersion: false,
 	},
@@ -118,7 +113,6 @@ export default antfu(
 		vue: true,
 
 		typescript: {
-			tsconfigPath: ['tsconfig.json', 'tsconfig.app.json'],
 			parserOptions: languageOptions?.parserOptions,
 		},
 		stylistic: {
@@ -144,19 +138,15 @@ export default antfu(
 	},
 	// eslintPluginPrettierRecommended,
 	// stylistic.configs['recommended-flat'],
-	Object(vuejsAccessibility.configs['flat/recommended']),
+	vuejsAccessibility.configs['flat/recommended'],
 	defaults,
 
-	Object(oxlint.configs['flat/recommended']), // oxlint should be the last one
-
-	...eslintrcCompat.plugins(
-		// 'vue',
-		'html'
-		// ...jsonConfig.plugins
-	),
+	// @ts-expect-error
+	oxlint.configs['flat/recommended'], // oxlint should be the last one
+	...eslintrcCompat.plugins('html'),
 	{
 		rules: defaults.rules,
 		ignores: defaults.ignores,
 		languageOptions: defaults.languageOptions,
-	}
+	},
 )
