@@ -22,4 +22,13 @@ const router = createRouter({
 	}
 })
 
+
+
+router.onError((error, to) => {
+	if (error.message.includes('Failed to fetch dynamically imported module')) {
+		Object.assign(window, { location: to.fullPath })
+	}
+})
+
+
 export default router
