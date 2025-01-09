@@ -8,7 +8,7 @@
 			"build": "run-p type-check \"build-only {@}\" --",
 			"preview": "vite preview",
 			"build-only": "vite build",
-			"type-check": "vue-tsc --build --force",
+			"type-check": "vue-tsc --build --force --noEmit",
 			"es:lint": "eslint . --cache --debug -c eslint.config.js --cache-location ./node_modules/.cache/.eslintcache",
 			"es:lint:fix": "eslint . --cache --fix --debug -c eslint.config.js --cache-location ./node_modules/.cache/.eslintcache",
 			"osc:lint": "oxlint .",
