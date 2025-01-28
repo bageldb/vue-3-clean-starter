@@ -1,28 +1,34 @@
 /* eslint-env node */
+
 // @ts-check
 
 import { readFileSync } from 'node:fs'
-
+import { join } from 'node:path'
 import { cwd } from 'node:process'
 import antfu from '@antfu/eslint-config'
-import { FlatCompat } from '@eslint/eslintrc'
 
+import { FlatCompat } from '@eslint/eslintrc'
 import oxlint from 'eslint-plugin-oxlint'
 
+// @ts-expect-error env
 import vuejsAccessibility from 'eslint-plugin-vuejs-accessibility'
+import * as globals from 'globals'
 import tsEslint from 'typescript-eslint'
-
-/// / @ts-expect-error env config
-// import globals from 'globals'
 import { loadEnv } from 'vite'
 
-/** * @type {import('./.eslintrc.json')} */
-const jsonConfig = JSON.parse(readFileSync('./.eslintrc.json', 'utf-8'))
+// @ts-expect-error meta-property is only allowed environments
+const esmMeta = import.meta
 
 const env = loadEnv('', cwd(), '')
 
+// @ts-expect-error env
+/** * @type {import('./.eslintrc.json')} */
+const jsonConfig = JSON.parse(
+	readFileSync(join(esmMeta.dirname, '/.eslintrc.json'), 'utf8'),
+)
+
 const eslintrcCompat = new FlatCompat({
-	baseDirectory: import.meta.dirname,
+	baseDirectory: esmMeta.dirname,
 })
 
 /**
@@ -39,10 +45,9 @@ const antfuRules = {
 	'style/comma-dangle': 0,
 	'antfu/if-newline': 0,
 	'style/brace-style': 0,
-	'perfectionist/sort-named-imports': 0,
-	'perfectionist/sort-imports': 0,
 	'ts/strict-boolean-expressions': 1,
 	'ts/return-await': 1,
+	'perfectionist/sort-named-imports': 0,
 }
 
 /**
@@ -58,21 +63,21 @@ const rules = {
 const files = ['*.ts', '*.js', '*.vue']
 
 /**
- * @type {import('eslint').Linter.Config['languageOptions']}
+ * @type import('eslint').Linter.Config['languageOptions']
  */
 const languageOptions = {
-	// // @ts-expect-error not assignable to type 'GlobalsConfig'.
-	globals: Object.create({
-		// ...globals.browser,
+	globals: {
+		...globals.browser,
+		...globals.node,
 		...jsonConfig.globals,
-	}),
+	},
 	parserOptions: {
 		extraFileExtensions: jsonConfig.languageOptions.extraFileExtensions,
 		parser: tsEslint.parser,
 		project: jsonConfig.languageOptions.project,
 		ecmaVersion: 'latest',
 		sourceType: 'module',
-		tsconfigRootDir: import.meta.dirname,
+		tsconfigRootDir: esmMeta.dirname,
 		warnOnUnsupportedTypeScriptVersion: false,
 	},
 }
@@ -81,11 +86,14 @@ const defaults = {
 	files,
 	languageOptions,
 	rules,
-	ignores: [...jsonConfig.ignorePatterns, '**/.eslintignore'],
+	ignores: [...jsonConfig.ignorePatterns, '**/.eslintignore', '**/android/**', '**/ios/**']
 }
+
 
 export default antfu(
 	{
+		ignores: defaults.ignores,
+		type: 'lib',
 		// lessOpinionated: true,
 		formatters: {
 			/**
@@ -113,6 +121,7 @@ export default antfu(
 		vue: true,
 
 		typescript: {
+			// tsconfigPath: jsonConfig.languageOptions.project,
 			parserOptions: languageOptions?.parserOptions,
 		},
 		stylistic: {
@@ -141,9 +150,8 @@ export default antfu(
 	vuejsAccessibility.configs['flat/recommended'],
 	defaults,
 
-	// @ts-expect-error
-	oxlint.configs['flat/recommended'], // oxlint should be the last one
 	...eslintrcCompat.plugins('html'),
+	oxlint.configs['flat/recommended'], // oxlint should be the last plugin
 	{
 		rules: defaults.rules,
 		ignores: defaults.ignores,
